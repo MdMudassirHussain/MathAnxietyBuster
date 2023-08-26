@@ -1,7 +1,7 @@
+#include "../include/mathAnxietyBuster.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/mathAnxietyBuster.h"
 
 int main()
 {
