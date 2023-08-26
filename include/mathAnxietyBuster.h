@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #define Problems_Per_Row 8
 #define Plus_Sign "+ "
+#define Space_Bar 32
+#define Spaces_1 " "
 #define Spaces_2 "  "
 #define Spaces_3 "   "
 #define New_Line_1 "\n"

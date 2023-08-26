@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
 	success = InitializeProblems(&problems, numDigits, numProblems);
 	if (!success) {
-		printf("Cannot Initialize memory for problems\n");
+		printf("Cannot Initialize problems\n");
 		return 3;
 	}
 
@@ -66,6 +66,8 @@ bool InitializeProblems(Problem** problems, int numDigits, int numProblems)
 			int pIndex	    = rand() % 81;
 			problem.question[j] = pairs[pIndex];
 		}
+
+		// Todo: Fix below loop to correctly calculate answer.
 		for (int j = 0; j < numDigits; j++) {
 			problem.answer += problem.question[j].num1 + problem.question[j].num2;
 		}
@@ -81,27 +83,27 @@ void PrintProblems(Problem* problems, int numDigits, int numProblems, FILE* file
 		int end	  = row * Problems_Per_Row;
 		int start = end - Problems_Per_Row;
 		for (int i = start; i < end; i++) {
-			fprintf(file, "%3d.  ", problems[i].position);
+			fprintf(file, "%3d.   ", problems[i].position);
 			for (int j = 0; j < numDigits; j++) {
 				fprintf(file, "%d ", problems[i].question[j].num1);
-				fflush(stdout);
 			}
-			fprintf(file, Spaces_2);
-			fflush(stdout);
+			fprintf(file, Spaces_1);
 		}
 		fprintf(file, New_Line_1);
-		fflush(stdout);
 		for (int i = start; i < end; i++) {
-			fprintf(file, "%4c", 32);
+			fprintf(file, "%5c", Space_Bar);
 			for (int j = 0; j < numDigits; j++) {
 				if (j == 0) fprintf(file, Plus_Sign);
 				fprintf(file, "%d ", problems[i].question[j].num2);
-				fflush(stdout);
 			}
-			free(problems[i].question);
-			fprintf(file, Spaces_2);
-			fflush(stdout);
+			fprintf(file, Spaces_1);
 		}
 		fprintf(file, New_Line_4);
+	}
+
+	// Todo: printing the answers neatly
+	for (int i = 0; i < numProblems; i++) {
+		fprintf(file, "%d. %d| ", problems[i].position, problems[i].answer);
+		free(problems[i].question);
 	}
 }
