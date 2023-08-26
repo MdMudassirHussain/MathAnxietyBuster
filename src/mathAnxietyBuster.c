@@ -5,11 +5,11 @@
 
 int main(int argc, char** argv)
 {
-	FILE*	  file	      = NULL;
-	IntPair** problems    = NULL;
-	int	  numDigits   = 0;
-	int	  numProblems = 0;
-	bool	  success     = false;
+	FILE*	 file	     = NULL;
+	Problem* problems    = NULL;
+	int	 numDigits   = 0;
+	int	 numProblems = 0;
+	bool	 success     = false;
 
 	success = ExtractArguments(argc, argv, &numDigits, &numProblems);
 	if (!success) {
@@ -23,42 +23,14 @@ int main(int argc, char** argv)
 		return 2;
 	}
 
-	success = InitializeMemoryForProblems(&problems, numDigits, numProblems);
+	success = InitializeProblems(&problems, numDigits, numProblems);
 	if (!success) {
 		printf("Cannot Initialize memory for problems\n");
 		return 3;
 	}
 
-	int rows = numProblems / Problems_Per_Row;
+	PrintProblems(problems, numDigits, numProblems, file);
 
-	for (int row = 1; row <= rows; row++) {
-		int end	  = row * Problems_Per_Row;
-		int start = end - Problems_Per_Row;
-
-		for (int i = start; i < end; i++) {
-			for (int j = 0; j < numDigits; j++) {
-				if (j == 0) fprintf(file, Spaces_2);
-
-				fprintf(file, "%d ", problems[i][j].num1);
-			}
-			fprintf(file, Spaces_3);
-		}
-		fprintf(file, New_Line_1);
-		for (int i = start; i < end; i++) {
-			for (int j = 0; j < numDigits; j++) {
-				if (j == 0) fprintf(file, Plus_Sign);
-
-				fprintf(file, "%d ", problems[i][j].num2);
-			}
-			fprintf(file, Spaces_3);
-		}
-		fprintf(file, New_Line_4);
-	}
-	fprintf(file, New_Line_2);
-
-	for (int i = 0; i < numProblems; i++) {
-		free(problems[i]);
-	}
 	free(problems);
 	fclose(file);
 
@@ -77,23 +49,59 @@ bool CreateTextFile(FILE** file)
 	*file = fopen(Problems_File_Path, "w");
 	return *file != NULL;
 }
-bool InitializeMemoryForProblems(IntPair*** problems, int numDigits, int numProblems)
+bool InitializeProblems(Problem** problems, int numDigits, int numProblems)
 {
-	*problems = malloc(sizeof(IntPair*) * numProblems);
+	*problems = malloc(sizeof(Problem) * numProblems);
 	if (*problems == NULL) return false;
 
 	srand(100);
-
 	for (int i = 0; i < numProblems; i++) {
-		(*problems)[i] = malloc(sizeof(IntPair) * numDigits);
+		Problem problem	 = { 0 };
+		problem.question = malloc(sizeof(IntPair) * numDigits);
 
-		if ((*problems)[i] == NULL) return false;
+		if (problem.question == NULL) return false;
 
+		problem.position = i + 1;
 		for (int j = 0; j < numDigits; j++) {
-			int pairIndex	  = rand() % 81;
-			(*problems)[i][j] = pairs[pairIndex];
+			int pIndex	    = rand() % 81;
+			problem.question[j] = pairs[pIndex];
 		}
-	}
+		for (int j = 0; j < numDigits; j++) {
+			problem.answer += problem.question[j].num1 + problem.question[j].num2;
+		}
 
+		(*problems)[i] = problem;
+	}
 	return true;
+}
+void PrintProblems(Problem* problems, int numDigits, int numProblems, FILE* file)
+{
+	int rows = numProblems / Problems_Per_Row;
+	for (int row = 1; row <= rows; row++) {
+		int end	  = row * Problems_Per_Row;
+		int start = end - Problems_Per_Row;
+		for (int i = start; i < end; i++) {
+			fprintf(file, "%3d.  ", problems[i].position);
+			for (int j = 0; j < numDigits; j++) {
+				fprintf(file, "%d ", problems[i].question[j].num1);
+				fflush(stdout);
+			}
+			fprintf(file, Spaces_2);
+			fflush(stdout);
+		}
+		fprintf(file, New_Line_1);
+		fflush(stdout);
+		for (int i = start; i < end; i++) {
+			fprintf(file, "%4c", 32);
+			for (int j = 0; j < numDigits; j++) {
+				if (j == 0) fprintf(file, Plus_Sign);
+				fprintf(file, "%d ", problems[i].question[j].num2);
+				fflush(stdout);
+			}
+			free(problems[i].question);
+			fprintf(file, Spaces_2);
+			fflush(stdout);
+		}
+		fprintf(file, New_Line_4);
+	}
 }

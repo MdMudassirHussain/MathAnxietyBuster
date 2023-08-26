@@ -2,7 +2,7 @@
 #define MATH_ANXIETY_BUSTER
 #include <stdio.h>
 #include <stdbool.h>
-#define Problems_Per_Row 10
+#define Problems_Per_Row 8
 #define Plus_Sign "+ "
 #define Spaces_2 "  "
 #define Spaces_3 "   "
@@ -15,6 +15,12 @@ typedef struct intPair {
 	int num1;
 	int num2;
 } IntPair;
+
+typedef struct problem {
+	int position;
+	IntPair* question;
+	int answer;
+} Problem;
 
 const IntPair pairs[] = {
 	{ 1, 1 }, { 1, 2 }, { 1, 3 }, { 1, 4 }, { 1, 5 }, { 1, 6 }, { 1, 7 }, { 1, 8 }, { 1, 9 }, 
@@ -29,5 +35,6 @@ const IntPair pairs[] = {
 };
 bool CreateTextFile(FILE** file);
 bool ExtractArguments(int argc, char** argv, int* numDigits, int* numProblems);
-bool InitializeMemoryForProblems(IntPair*** problems, int numDigits, int numProblems);
+bool InitializeProblems(Problem** problems, int numDigits, int numProblems);
+void PrintProblems(Problem* problems, int numDigits, int numProblems, FILE* file);
 #endif
