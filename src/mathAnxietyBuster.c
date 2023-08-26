@@ -7,7 +7,7 @@ int main()
 {
 	FILE* fp = fopen("./build/problems", "w");
 	if (fp == NULL) {
-		printf("Cannot create/open file problems\n");
+		printf("Cannot create/open text file 'problems'\n");
 		return 1;
 	}
 
@@ -32,22 +32,29 @@ int main()
 
 		for (int i = start; i < end; i++) {
 			for (int j = 0; j < numDigits; j++) {
-				if (j == 0) fprintf(fp, "  ");
+				if (j == 0) fprintf(fp, Spaces_2);
+
 				fprintf(fp, "%d ", problems[i][j].num1);
 			}
-			fprintf(fp, "   ");
+			fprintf(fp, Spaces_3);
 		}
-		fprintf(fp, "\n");
+		fprintf(fp, New_Line_1);
 		for (int i = start; i < end; i++) {
 			for (int j = 0; j < numDigits; j++) {
-				if (j == 0) fprintf(fp, "+ ");
+				if (j == 0) fprintf(fp, Plus_Sign);
+
 				fprintf(fp, "%d ", problems[i][j].num2);
 			}
-			fprintf(fp, "   ");
+			fprintf(fp, Spaces_3);
 		}
-		fprintf(fp, "\n\n\n\n");
+		fprintf(fp, New_Line_4);
 	}
-	fprintf(fp, "\n\n");
+	fprintf(fp, New_Line_2);
+
+	for (int i = 0; i < numProblems; i++) {
+		free(problems[i]);
+	}
+	free(problems);
 	fclose(fp);
 
 	return 0;

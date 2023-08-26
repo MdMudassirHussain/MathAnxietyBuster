@@ -1,7 +1,13 @@
 #ifndef MATH_ANXIETY_BUSTER
 #define MATH_ANXIETY_BUSTER
 #define Problems_Per_Row 10
-
+#define Plus_Sign "+ "
+#define Spaces_2 "  "
+#define Spaces_3 "   "
+#define New_Line_1 "\n"
+#define New_Line_2 "\n\n"
+#define New_Line_3 "\n\n\n"
+#define New_Line_4 "\n\n\n\n"
 typedef struct intPair {
 	int num1;
 	int num2;
