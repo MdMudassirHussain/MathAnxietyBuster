@@ -1,0 +1,8 @@
+BasedOnStyle: WebKit
+UseTab: Always
+TabWidth: 8
+IndentWidth: 8
+PointerAlignment: Left
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveDeclarations: Consecutive
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
