@@ -7,4 +7,4 @@ this program has your back. It's tailor-made for folks who face that notorious m
 # Features
 
 Our program starts with addition, but stay tuned! We're cooking up an update to include subtraction, multiplication, and division problems. A complete arithmetic feast awaits.
-Paper Trail of Answers: Soon, you'll have access to answer keys (we call them "key papers") that align with the problems. No more head-scratching – you can cross-check your solutions with ease.
+you'll have access to answer in separate file that align with the problems. No more head-scratching – you can cross-check your solutions with ease.
