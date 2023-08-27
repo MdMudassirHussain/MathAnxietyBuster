@@ -103,7 +103,7 @@ void PrintProblems(Problem* problems, int numDigits, int numProblems, FILE* file
 		int end	  = row * Problems_Per_Row;
 		int start = end - Problems_Per_Row;
 		PrintRow(start, end, numDigits, file, problems);
-		fprintf(file, New_Line_4);
+		if (row < rows) fprintf(file, New_Line_4);
 	}
 }
 void PrintRow(int start, int end, int numDigits, FILE* file, Problem* problems)
