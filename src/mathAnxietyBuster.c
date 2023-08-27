@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main(int argc, char** argv)
 {
@@ -11,6 +12,8 @@ int main(int argc, char** argv)
 	int	 numDigits     = 0;
 	int	 numProblems   = 0;
 	bool	 success       = false;
+
+	srand(time(NULL));
 
 	success = ExtractArguments(argc, argv, &numDigits, &numProblems);
 	if (!success) {
@@ -36,6 +39,7 @@ int main(int argc, char** argv)
 		return 4;
 	}
 
+	PrintHeader(problemsFile);
 	PrintProblems(problems, numDigits, numProblems, problemsFile);
 	PrintAnswers(numProblems, problems, solutionsFile);
 
@@ -63,7 +67,6 @@ bool InitializeProblems(Problem** problems, int numDigits, int numProblems)
 	*problems = malloc(sizeof(Problem) * numProblems);
 	if (*problems == NULL) return false;
 
-	srand(100);
 	for (int i = 0; i < numProblems; i++) {
 		Problem problem	 = { 0 };
 		short	num1s	 = 0;
@@ -83,6 +86,15 @@ bool InitializeProblems(Problem** problems, int numDigits, int numProblems)
 		(*problems)[i] = problem;
 	}
 	return true;
+}
+void PrintHeader(FILE* problemsFile)
+{
+	struct tm* ptr;
+	time_t	   t;
+	t   = time(NULL);
+	ptr = localtime(&t);
+	fprintf(problemsFile, "  %s", asctime(ptr));
+	fprintf(problemsFile, "  ------------------------\n");
 }
 void PrintProblems(Problem* problems, int numDigits, int numProblems, FILE* file)
 {
