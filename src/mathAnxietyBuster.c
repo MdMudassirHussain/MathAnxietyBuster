@@ -110,7 +110,7 @@ void PrintRow(int start, int end, int numDigits, FILE* file, Problem* problems)
 {
 	// print first line num1's
 	for (int i = start; i < end; i++) {
-		fprintf(file, "%3d.   ", problems[i].position);
+		fprintf(file, "%3d)   ", problems[i].position);
 		for (int j = 0; j < numDigits; j++) {
 			fprintf(file, "%d ", problems[i].question[j].num1);
 		}
@@ -131,7 +131,7 @@ void PrintRow(int start, int end, int numDigits, FILE* file, Problem* problems)
 void PrintAnswers(int numProblems, Problem* problems, FILE* solutionsFile)
 {
 	for (int i = 0; i < numProblems; i++) {
-		fprintf(solutionsFile, "|%3d.%5d", problems[i].position, problems[i].answer);
+		fprintf(solutionsFile, "%3d)%5d ", problems[i].position, problems[i].answer);
 		if ((i + 1) % 10 == 0) fprintf(solutionsFile, New_Line_2);
 		free(problems[i].question);
 	}
