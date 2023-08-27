@@ -13,6 +13,7 @@
 #define New_Line_3 "\n\n\n"
 #define New_Line_4 "\n\n\n\n"
 #define Problems_File_Path "./build/problems"
+#define Solutions_File_Path "./build/solutions"
 typedef struct intPair {
 	int num1;
 	int num2;
@@ -35,8 +36,10 @@ const IntPair pairs[] = {
 	{ 8, 1 }, { 8, 2 }, { 8, 3 }, { 8, 4 }, { 8, 5 }, { 8, 6 }, { 8, 7 }, { 8, 8 }, { 8, 9 },
 	{ 9, 1 }, { 9, 2 }, { 9, 3 }, { 9, 4 }, { 9, 5 }, { 9, 6 }, { 9, 7 }, { 9, 8 }, { 9, 9 }
 };
-bool CreateTextFile(FILE** file);
+bool CreateTextFile(FILE** file, char* filePath);
 bool ExtractArguments(int argc, char** argv, int* numDigits, int* numProblems);
 bool InitializeProblems(Problem** problems, int numDigits, int numProblems);
 void PrintProblems(Problem* problems, int numDigits, int numProblems, FILE* file);
+void PrintRow(int start, int end, int numDigits, FILE* file, Problem* problems);
+void PrintAnswers(int numProblems, Problem* problems, FILE* solutionsFile);
 #endif
