@@ -120,7 +120,7 @@ void PrintAnswers(int numProblems, Problem* problems, FILE* solutionsFile)
 {
 	for (int i = 0; i < numProblems; i++) {
 		fprintf(solutionsFile, "|%3d.%5d", problems[i].position, problems[i].answer);
-		if ((i+1) % 10 == 0) fprintf(solutionsFile, New_Line_2);
+		if ((i + 1) % 10 == 0) fprintf(solutionsFile, New_Line_2);
 		free(problems[i].question);
 	}
 }
